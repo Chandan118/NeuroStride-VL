@@ -1,0 +1,141 @@
+# NeuroStride-VL Dependencies
+# ==============================
+# Vision-Language-Action Bipedal Robot Framework
+# Supports: macOS M2 Pro (Development) & NVIDIA Jetson Orin Nano (Deployment)
+
+# Core ML/DL Frameworks
+# ----------------------
+# PyTorch with platform-specific options
+# For Mac M2 Pro (with MPS support): use torch with mps backend
+# For Jetson Orin Nano: use torch with CUDA (JetPack 6.0)
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Reinforcement Learning
+# ----------------------
+stable-baselines3>=2.0.0
+sb3-contrib>=2.0.0  # For SAC, TQC, etc.
+gymnasium>=0.28.0
+huggingface-sb3>=2.0.0  # For model zoo and monitoring
+
+# Physics Simulation
+# ------------------
+mujoco>=2.3.0  # MuJoCo physics engine
+dm-control>=1.0.0  # DeepMind Control Suite
+
+# Vision-Language Models
+# -----------------------
+transformers>=4.35.0  # HuggingFace transformers (includes Qwen-VL)
+accelerate>=0.24.0  # For efficient model loading
+sentencepiece>=0.1.99  # Tokenization for Qwen
+pillow>=10.0.0  # Image processing
+opencv-python>=4.8.0  # Computer vision
+
+# ROS2 (Robot Operating System)
+# ------------------------------
+# Note: Install ROS2 Humble via official apt packages (see docs/install_ros2.md)
+# rclpy>=0.11.0
+# rclpy-action>=0.11.0
+# std_msgs>=0.5.0
+# geometry_msgs>=0.11.0
+# sensor_msgs>=0.11.0
+
+# Data Processing & Numerical
+# ----------------------------
+numpy>=1.24.0
+scipy>=1.10.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# Configuration & Experiment Management
+# --------------------------------------
+hydra-core>=1.3.0  # Configuration management
+mlflow>=2.5.0  # Experiment tracking
+wandb>=0.15.0  # Weights & Biases (optional)
+tensorboard>=2.13.0
+
+# Edge Deployment & Optimization
+# -------------------------------
+# For Jetson Orin Nano deployment
+onnx>=1.14.0  # ONNX format
+onnxruntime>=1.15.0  # ONNX Runtime (CPU/CUDA)
+tensorrt>=8.6.0  # NVIDIA TensorRT (Jetson only, install via apt)
+
+# Quantization & Optimization
+# ---------------------------
+torch2trt @ git+https://github.com/NVIDIA-AI-IOT/torch2trt.git  # PyTorch to TensorRT converter
+timm>=0.9.0  # PyTorch Image Models
+
+# Visualization & Monitoring
+# ---------------------------
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+pygame>=2.5.0  # For real-time visualization
+ros2topic  # ROS2 command-line tools
+
+# Development & Testing
+# ----------------------
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.0.0  # Code formatting
+isort>=5.12.0  # Import sorting
+flake8>=6.0.0  # Linting
+mypy>=1.4.0  # Type checking
+
+# Utilities
+# ---------
+tqdm>=4.65.0  # Progress bars
+pyyaml>=6.0  # YAML parsing
+click>=8.1.0  # CLI interface
+rich>=13.5.0  # Terminal formatting
+loguru>=0.7.0  # Logging
+
+# Platform-Specific Notes
+# ========================
+#
+# Mac M2 Pro (Development Machine):
+# --------------------------------
+# 1. Install Miniforge (ARM64 Python):
+#    curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh"
+#    bash Miniforge3-MacOSX-arm64.sh
+#
+# 2. Install PyTorch with MPS support:
+#    conda install pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia
+#    # OR use pip with metal backend:
+#    pip install torch torchvision --index-url https://download.pytorch.org/whl/nightly/cpu
+#
+# 3. Install MuJoCo:
+#    conda install -c conda-forge mujoco
+#
+# 4. Install ROS2 (via Docker or separate Linux machine):
+#    ROS2 is not natively supported on macOS. Use Docker or run on Jetson.
+#
+# Jetson Orin Nano (Edge Deployment):
+# ------------------------------------
+# 1. Flash JetPack 6.0 (includes Ubuntu 22.04, CUDA 11.8, cuDNN, TensorRT)
+#
+# 2. Install system dependencies:
+#    sudo apt update
+#    sudo apt install python3-pip python3-dev libopenblas-dev libomp-dev
+#    sudo apt install ros-humble-desktop  # Full ROS2 installation
+#
+# 3. Install PyTorch for Jetson (pre-built wheel):
+#    wget https://nvidia-ai-iot.github.io/torch2trt/install_torch.sh
+#    sudo bash install_torch.sh
+#    # OR download from NVIDIA PyTorch for Jetson GitHub releases
+#
+# 4. Install TensorRT and torch2trt:
+#    sudo apt install python3-libnvinfer-dev libnvinfer-dev python3-libnvinfer
+#    pip install torch2trt
+#
+# 5. Install remaining Python packages:
+#    pip3 install -r requirements.txt
+#
+# Docker Alternative (Cross-Platform):
+# --------------------------------------
+# Use Docker containers to ensure consistent environments:
+# - neurostridevl/dev:latest (M2 Pro development)
+# - neurostridevl/jetson:latest (Orin Nano cross-compilation)
+#
+# See docker/Dockerfile.dev and docker/Dockerfile.jetson

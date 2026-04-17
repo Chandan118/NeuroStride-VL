@@ -1,0 +1,98 @@
+# NeuroStride-VL Git 忽略规则
+# ================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.venv
+.conda
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+logs/
+*.log.*
+
+# 训练输出
+models/checkpoints/*
+!models/checkpoints/.gitkeep
+models/trt/*
+!models/trt/.gitkeep
+
+# 数据
+data/robots/*.urdf
+data/scenarios/*.xml
+!data/robots/.gitkeep
+!data/scenarios/.gitkeep
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
+.cache
+
+# MuJoCo
+.mujoco/
+mjkey.txt
+
+# ROS2
+build/
+install/
+log/
+colcon_*
+
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# 测试覆盖率
+.coverage
+htmlcov/
+.pytest_cache/
+
+# 配置本地
+configs/local.yaml
+
+# 密钥文件
+*.pem
+*.key
+*.p12
+
+# 摄像头测试
+test_video.avi
+test_frame.png

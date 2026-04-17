@@ -1,0 +1,36 @@
+# 部署配置
+
+# 机器人配置
+robot:
+  type: "unitree_g1"
+  num_joints: 23
+  max_torque: 50.0
+
+# 策略模型
+policy:
+  model_path: "models/checkpoints/sac_final.zip"
+  algo: "sac"
+  use_tensorrt: true
+  tensorrt_engine: "models/trt/policy_fp16.engine"
+
+# 硬件
+hardware:
+  platform: "jetson_orin_nano"
+  use_ros2_control: false
+  motor_interface: "serial"  # "serial" 或 "ros2_control"
+  serial_port: "/dev/ttyUSB0"
+  serial_baudrate: 1000000
+
+# 控制
+control:
+  frequency: 50.0  # Hz
+  safety:
+    max_velocity: 1.5  # m/s
+    max_yaw_rate: 1.0  # rad/s
+    emergency_stop_timeout: 0.5  # s
+
+# 日志
+logging:
+  level: "INFO"
+  log_dir: "logs/"
+  save_ros_bag: false

@@ -1,0 +1,31 @@
+# Mac M2 Pro 硬件配置
+
+# 基本信息
+platform: "macbook_m2_pro"
+cpu: "Apple M2 Pro"
+gpu: "Apple Silicon GPU (16核心)"
+memory: "32GB unified memory"
+
+# PyTorch 配置
+torch:
+  device: "mps"  # Metal Performance Shaders
+  enable_mps: true
+  deterministic: false  # MPS 不支持确定性算法
+
+# 训练配置
+training:
+  batch_size: 64
+  num_workers: 4
+  use_amp: true  # 自动混合精度
+  prefetch_factor: 2
+
+# 仿真
+mujoco:
+  use_gpu: false  # MuJoCo 在 macOS 上不使用 GPU
+  threads: 4
+
+# VLM
+vlm:
+  model: "Qwen/Qwen-VL-2B-Chat"
+  use_quantization: false  # Mac 内存充足，不需要量化
+  device: "mps"

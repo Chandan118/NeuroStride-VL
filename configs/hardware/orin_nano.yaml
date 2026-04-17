@@ -1,0 +1,40 @@
+# Jetson Orin Nano 硬件配置
+
+# 基本信息
+platform: "jetson_orin_nano"
+cpu: "6-core ARM Cortex-A78"
+gpu: "NVIDIA Ampere 1024-core GPU"
+memory: "8GB LPDDR5"
+storage: "32GB eMMC"
+
+# JetPack 版本
+jetpack_version: "6.0"
+cuda_version: "11.8"
+cudnn_version: "8.9"
+tensorrt_version: "8.6"
+
+# PyTorch 配置
+torch:
+  device: "cuda"
+  cuda_device: 0
+  use_tensorrt: true
+
+# 推理优化
+inference:
+  use_fp16: true  # 半精度加速
+  use_int8: false  # 需要校准
+  batch_size: 1
+
+# 控制频率
+control:
+  loop_frequency: 50.0  # Hz
+  policy_inference_freq: 100.0  # Hz
+
+# 功耗模式
+power_mode: "MAXN"  # "MAXN", "5W", "10W", "15W"
+
+# 散热
+thermal:
+  enable_fan: true
+  fan_speed: "auto"
+  temp_threshold: 80  # °C
