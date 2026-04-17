@@ -434,11 +434,4 @@ MIT License - see [LICENSE](LICENSE) file.
 
 ---
 
-## ⭐ Star Us
-
-If this project helps you, please **star** ⭐ this repository!
-
-<p align="center">
-  <strong>Empowering robots with intelligence through open-source collaboration</strong><br>
-  🚀 Made with ❤️ by the NeuroStride-VL Team
-</p>
+**Made with ❤️ by the NeuroStride-VL Team**
