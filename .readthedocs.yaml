@@ -1,0 +1,54 @@
+# .readthedocs.yaml
+# Read the Docs configuration file for NeuroStride-VL
+
+version: 2
+
+# Set Python version and install requirements
+python:
+   version: 3.10
+   install:
+   - requirements: docs/requirements.txt
+   - method: pip
+     path: .
+
+# Build documentation with Sphinx
+sphinx:
+   configuration: docs/conf.py
+   builder: html
+
+# Format documentation with MyST parser (Markdown support)
+formats:
+   - htmlzip
+   - pdf
+   - epub
+
+# Optional: Build custom Docker image (if needed)
+# docker:
+#    image: readthedocs/build:latest
+
+# Optional: Enable caching for faster builds
+# caching:
+#    key: "deps-{{ environment.kinds.pip.pipfile_hash }}"
+#    paths:
+#    - "$HOME/.cache/pip"
+
+# Search engine optimization (SEO)
+search:
+   ranking:
+      headers: 2
+
+# Build only these branches (optional)
+# branches:
+#    only:
+#    - main
+#    - develop
+
+# Build all pull requests
+pull_requests:
+   enabled: true
+
+# Set build timeout
+build:
+   jobs:
+      pre_build:
+      - "echo 'Pre-build step (if needed)'"

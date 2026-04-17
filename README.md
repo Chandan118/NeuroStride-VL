@@ -480,15 +480,20 @@ pie title Reward Component Contribution to Final Performance
 
 ## 📚 Documentation
 
-| Resource | Link |
-|----------|------|
-| **Full Docs** | https://neurostride-vl.readthedocs.io |
-| API Reference | /api/ |
-| Tutorials | /tutorials/ |
-| Architecture | /architecture/ |
-| Installation | /installation/ |
-| Training Guide | /training/ |
-| Deployment | /deployment/ |
+**📖 Complete Documentation:** [https://neurostride-vl.readthedocs.io](https://neurostride-vl.readthedocs.io)
+
+| Section | Description | Link |
+|---------|-------------|------|
+| **🏠 Home** | Getting started & overview | [Read More](https://neurostride-vl.readthedocs.io) |
+| **📖 API Reference** | Full Python API documentation | [API Docs](https://neurostride-vl.readthedocs.io/en/latest/api/) |
+| **🎓 Tutorials** | Step-by-step guides & examples | [Tutorials](https://neurostride-vl.readthedocs.io/en/latest/tutorials/) |
+| **🏗️ Architecture** | System design & components | [Architecture](https://neurostride-vl.readthedocs.io/en/latest/architecture/) |
+| **🔧 Installation** | Setup for Mac & Jetson | [Installation](https://neurostride-vl.readthedocs.io/en/latest/installation/) |
+| **🎮 Training** | RL training guide & tips | [Training Guide](https://neurostride-vl.readthedocs.io/en/latest/training/) |
+| **🚀 Deployment** | Edge deployment & optimization | [Deployment](https://neurostride-vl.readthedocs.io/en/latest/deployment/) |
+| **🔬 Advanced** | Custom robots & reward functions | [Advanced](https://neurostride-vl.readthedocs.io/en/latest/advanced/) |
+
+> **📚 Local Documentation:** Build and view docs locally with `cd docs && make html` then open `docs/_build/html/index.html`
 
 ---
 
