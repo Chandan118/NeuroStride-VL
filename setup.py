@@ -1,7 +1,7 @@
 """
-NeuroStride-VL 包配置
-======================
-使用 setuptools 构建 Python 包
+NeuroStride-VL Package Configuration
+=====================================
+Python package build configuration using setuptools
 """
 
 from setuptools import setup, find_packages

@@ -1,15 +1,15 @@
 # LocomotionCommand.msg
-# 运动控制命令
+# Locomotion Control Command
 
 builtin_interfaces/Time stamp
 
-float32 vx                          # X方向速度 (m/s)
-float32 vy                          # Y方向速度 (m/s)
-float32 vyaw                        # 角速度 (rad/s)
+float32 vx                          # X velocity (m/s)
+float32 vy                          # Y velocity (m/s)
+float32 vyaw                        # Yaw rate (rad/s)
 
-float32 step_height                 # 步高 (m)
-float32 step_freq                   # 步频 (Hz)
+float32 step_height                 # Step height (m)
+float32 step_freq                   # Step frequency (Hz)
 
-bool enable                         # 使能/禁用
+bool enable                         # Enable/disable
 
-string gait_type                    # 步态类型: "walk", "trot", "run"
+string gait_type                    # Gait type: "walk", "trot", "run"

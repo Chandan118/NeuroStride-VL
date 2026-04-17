@@ -1,4 +1,4 @@
-# NeuroStride-VL Git 忽略规则
+# NeuroStride-VL Git Ignore Rules
 # ================================
 
 # Python
@@ -24,7 +24,7 @@ wheels/
 *.egg
 MANIFEST
 
-# 虚拟环境
+# Virtual environments
 venv/
 env/
 ENV/
@@ -38,28 +38,28 @@ ENV/
 *.swo
 *~
 
-# 操作系统
+# Operating System
 .DS_Store
 Thumbs.db
 
-# 日志
+# Logs
 *.log
 logs/
 *.log.*
 
-# 训练输出
+# Training outputs
 models/checkpoints/*
 !models/checkpoints/.gitkeep
 models/trt/*
 !models/trt/.gitkeep
 
-# 数据
+# Data
 data/robots/*.urdf
 data/scenarios/*.xml
 !data/robots/.gitkeep
 !data/scenarios/.gitkeep
 
-# 临时文件
+# Temporary files
 *.tmp
 *.temp
 .cache/
@@ -75,24 +75,23 @@ install/
 log/
 colcon_*
 
-
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
 
-# 测试覆盖率
+# Test coverage
 .coverage
 htmlcov/
 .pytest_cache/
 
-# 配置本地
+# Local config
 configs/local.yaml
 
-# 密钥文件
+# Key files
 *.pem
 *.key
 *.p12
 
-# 摄像头测试
+# Camera test
 test_video.avi
 test_frame.png

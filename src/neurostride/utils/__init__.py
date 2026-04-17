@@ -1,6 +1,6 @@
 """
-神经步态-VL: 实用工具模块
-==========================
+NeuroStride-VL: Utility Modules
+================================
 """
 
 from .logger import get_logger, log_info, log_success, log_warning, log_error, log_debug

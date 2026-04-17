@@ -1,14 +1,14 @@
 #!/bin/bash
-# NeuroStride-VL 训练启动脚本
-# ================================
-# 用于启动强化学习训练
+# NeuroStride-VL: Training Launcher Script
+# ==========================================
+# Used to start reinforcement learning training
 
 set -e
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$PROJECT_ROOT"
 
-# 颜色
+# Colors
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
@@ -26,7 +26,7 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# 解析命令行参数
+# Parse command line arguments
 ALGO="sac"
 ENV="unitree_g1"
 TIMESTEPS=1000000
@@ -61,42 +61,42 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         *)
-            log_error "未知参数: $1"
+            log_error "Unknown parameter: $1"
             exit 1
             ;;
     esac
 done
 
 log_info "=========================================="
-log_info "  NeuroStride-VL 训练启动器"
+log_info "  NeuroStride-VL Training Launcher"
 log_info "=========================================="
-log_info "算法: $ALGO"
-log_info "环境: $ENV"
-log_info "训练步数: $TIMESTEPS"
-log_info "设备: $DEVICE"
+log_info "Algorithm: $ALGO"
+log_info "Environment: $ENV"
+log_info "Timesteps: $TIMESTEPS"
+log_info "Device: $DEVICE"
 
-# 激活虚拟环境（如果存在）
+# Activate virtual environment if exists
 if [ -d "venv" ]; then
     source venv/bin/activate
-    log_info "激活虚拟环境: venv"
+    log_info "Activated virtual environment: venv"
 elif [ -d ".venv" ]; then
     source .venv/bin/activate
-    log_info "激活虚拟环境: .venv"
+    log_info "Activated virtual environment: .venv"
 elif command -v conda &> /dev/null && [[ "$CONDA_DEFAULT_ENV" == "neurostride" ]]; then
-    log_info "使用 Conda 环境: neurostride"
+    log_info "Using Conda environment: neurostride"
 else
-    log_warn "未检测到虚拟环境，使用系统 Python"
+    log_warn "No virtual environment detected, using system Python"
 fi
 
-# 构建 Python 命令
+# Build Python command
 CMD="python3 src/agents/rl_agent.py"
 
 if [ "$VERBOSE" -eq 1 ]; then
     CMD="$CMD --verbose 1"
 fi
 
-# 执行训练
-log_info "开始训练..."
+# Execute training
+log_info "Starting training..."
 echo ""
 
 python3 -m neurostride.agents.train \
@@ -107,6 +107,6 @@ python3 -m neurostride.agents.train \
     ${CONFIG:+--config "$CONFIG"}
 
 echo ""
-log_info "训练完成！"
-log_info "模型保存在: models/checkpoints/"
-log_info "日志在: logs/"
+log_info "Training complete!"
+log_info "Models saved to: models/checkpoints/"
+log_info "Logs in: logs/"

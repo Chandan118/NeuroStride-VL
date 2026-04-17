@@ -1,16 +1,16 @@
 # MotorCommand.msg
-# 电机控制指令
+# Motor Control Command
 
 builtin_interfaces/Time stamp
 
-string[] joint_names                 # 关节名称列表
-float32[] effort                    # 扭矩命令 (N·m)
-float32[] position                  # 目标位置 (rad) [可选]
-float32[] velocity                  # 目标速度 (rad/s) [可选]
+string[] joint_names                 # Joint name list
+float32[] effort                    # Torque command (N·m)
+float32[] position                  # Target position (rad) [optional]
+float32[] velocity                  # Target velocity (rad/s) [optional]
 
-uint8 mode                          # 控制模式
-uint8 MODE_TORQUE = 0               # 扭矩控制
-uint8 MODE_POSITION = 1             # 位置控制
-uint8 MODE_VELOCITY = 2             # 速度控制
+uint8 mode                          # Control mode
+uint8 MODE_TORQUE = 0               # Torque control
+uint8 MODE_POSITION = 1             # Position control
+uint8 MODE_VELOCITY = 2             # Velocity control
 
-bool emergency_stop                 # 紧急停止
+bool emergency_stop                 # Emergency stop

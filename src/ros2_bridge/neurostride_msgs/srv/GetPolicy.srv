@@ -1,10 +1,10 @@
 # GetPolicy.srv
-# 获取策略模型
+# Get policy model
 
-# 请求
+# Request
 ---
-# 响应
-string model_path                   # 模型路径
-string algorithm                    # 算法类型
-float32[23] policy_mean            # 策略均值
-float32[23] policy_std             # 策略标准差
+# Response
+string model_path                   # Model path
+string algorithm                    # Algorithm type
+float32[23] policy_mean            # Policy mean
+float32[23] policy_std             # Policy standard deviation

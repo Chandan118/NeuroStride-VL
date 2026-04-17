@@ -7,17 +7,17 @@
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey)
 ![Jetson](https://img.shields.io/badge/jetson-Orin%20Nano-orange)
 
-**一个端到端的双足机器人控制系统，结合LLM高级推理与深度强化学习的实时平衡控制**
+**An end-to-end bipedal robot control system combining LLM high-level reasoning with deep reinforcement learning for real-time balance control**
 
-[快速开始](#快速开始) | [系统架构](#系统架构) | [安装指南](#安装指南) | [演示](#演示) | [文档](https://neurostride-vl.readthedocs.io)
+[Quick Start](#quick-start) | [Architecture](#architecture) | [Installation](#installation) | [Demo](#demo) | [Docs](https://neurostride-vl.readthedocs.io)
 
 </div>
 
 ---
 
-## 🎯 项目概述
+## Project Overview
 
-NeuroStride-VL 是一个创新的双足机器人控制框架，它融合了三种前沿技术：
+NeuroStride-VL is an innovative bipedal robot control framework that融合了三种前沿技术：
 
 1. **大语言模型（LLM）视觉理解** - 使用 Qwen-2-VL 进行场景语义分析
 2. **深度强化学习（DRL）** - 使用 PPO/SAC 训练鲁棒的行走策略

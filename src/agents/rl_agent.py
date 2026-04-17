@@ -1,13 +1,13 @@
 """
-NeuroStride-VL: 强化学习智能体
-===============================
-基于 Stable-Baselines3 的 PPO 和 SAC 算法实现
+NeuroStride-VL: Reinforcement Learning Agent
+============================================
+PPO and SAC algorithm implementations based on Stable-Baselines3
 
-支持算法:
+Supported algorithms:
 - PPO (Proximal Policy Optimization)
 - SAC (Soft Actor-Critic)
 
-作者: NeuroStride-VL Team
+Authors: NeuroStride-VL Team
 """
 
 import os

@@ -1,7 +1,7 @@
 """
-NeuroStride-VL 感知模块
-=======================
-视觉语言模型处理
+NeuroStride-VL: Perception Module
+==================================
+Vision-Language Model processing
 """
 
 from .qwen_vl_agent import QwenVLAgent, VLConfig, SceneUnderstanding

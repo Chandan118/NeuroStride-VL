@@ -1,13 +1,13 @@
 """
-NeuroStride-VL 简易日志模块
-======================
-当完整logger不可用时的后备方案
+NeuroStride-VL: Simple Logger Module
+=====================================
+Fallback logging when full logger is unavailable
 """
 
 import logging
 import sys
 
-# 基础日志配置
+# Basic logging configuration
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)-8s] %(name)s: %(message)s',

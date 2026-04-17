@@ -1,12 +1,13 @@
 """
-NeuroStride-VL: 双足机器人视觉-语言-动作框架
-=================================================
+NeuroStride-VL: Bipedal Robot Vision-Language-Action Framework
+================================================================
 
-一个端到端的双足机器人控制系统，结合大语言模型(LLM)的高级推理
-与深度强化学习(DRL)的低层平衡控制。
+An end-to-end bipedal robot control system combining high-level reasoning
+from Large Language Models (LLM) with low-level balance control from
+Deep Reinforcement Learning (DRL).
 
-作者: NeuroStride-VL Team
-许可证: MIT
+Authors: NeuroStride-VL Team
+License: MIT
 """
 
 __version__ = "0.1.0"
@@ -15,7 +16,7 @@ __email__ = "contact@neurostride-vl.ai"
 __license__ = "MIT"
 __description__ = "Vision-Language-Action Bipedal Robot Framework"
 
-# 核心模块导入
+# Core module imports
 from neurostride.env.bipedal_env import BipedalEnv, RobotConfig, make_env
 from neurostride.agents.rl_agent import (
     RLAgent,

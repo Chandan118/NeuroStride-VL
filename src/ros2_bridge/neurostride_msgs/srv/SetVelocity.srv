@@ -1,7 +1,7 @@
 # SetVelocity.srv
-# 设置目标速度
+# Set target velocity
 
-geometry_msgs/Twist velocity        # 目标速度
+geometry_msgs/Twist velocity        # Target velocity
 ---
-bool success                        # 是否成功
-string message                      # 结果消息
+bool success                        # Success flag
+string message                      # Result message

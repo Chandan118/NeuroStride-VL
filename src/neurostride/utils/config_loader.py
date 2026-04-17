@@ -1,7 +1,7 @@
 """
-NeuroStride-VL 配置文件加载器
-==============================
-支持 YAML 和 JSON 格式配置
+NeuroStride-VL: Configuration Loader
+=====================================
+Supports YAML and JSON configuration formats
 """
 
 import yaml
@@ -12,18 +12,18 @@ from typing import Dict, Any, Optional
 
 def load_config(config_path: str) -> Dict[str, Any]:
     """
-    加载配置文件
+    Load configuration file
 
     Args:
-        config_path: 配置文件路径（支持 .yaml, .yml, .json）
+        config_path: Config file path (supports .yaml, .yml, .json)
 
     Returns:
-        配置字典
+        Configuration dictionary
     """
     path = Path(config_path)
 
     if not path.exists():
-        raise FileNotFoundError(f"配置文件未找到: {config_path}")
+        raise FileNotFoundError(f"Config file not found: {config_path}")
 
     with open(path, 'r', encoding='utf-8') as f:
         if path.suffix in ['.yaml', '.yml']:
@@ -31,19 +31,19 @@ def load_config(config_path: str) -> Dict[str, Any]:
         elif path.suffix == '.json':
             config = json.load(f)
         else:
-            raise ValueError(f"不支持的配置文件格式: {path.suffix}")
+            raise ValueError(f"Unsupported config format: {path.suffix}")
 
     return config or {}
 
 
 def save_config(config: Dict[str, Any], config_path: str, format: str = 'yaml'):
     """
-    保存配置文件
+    Save configuration file
 
     Args:
-        config: 配置字典
-        config_path: 保存路径
-        format: 格式 ('yaml' 或 'json')
+        config: Configuration dictionary
+        config_path: Save path
+        format: Format ('yaml' or 'json')
     """
     path = Path(config_path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -54,19 +54,19 @@ def save_config(config: Dict[str, Any], config_path: str, format: str = 'yaml'):
         elif format == 'json':
             json.dump(config, f, indent=2, ensure_ascii=False)
         else:
-            raise ValueError(f"不支持的格式: {format}")
+            raise ValueError(f"Unsupported format: {format}")
 
 
 def merge_configs(base: Dict, override: Dict) -> Dict:
     """
-    合并配置（override 覆盖 base）
+    Merge configurations (override overrides base)
 
     Args:
-        base: 基础配置
-        override: 覆盖配置
+        base: Base configuration
+        override: Override configuration
 
     Returns:
-        合并后的配置
+        Merged configuration
     """
     result = base.copy()
 

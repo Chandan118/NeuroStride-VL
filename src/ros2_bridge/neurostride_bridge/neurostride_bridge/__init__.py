@@ -1,7 +1,7 @@
 """
-NeuroStride-VL ROS2 桥接包
-===========================
-包含指挥官节点和执行器节点
+NeuroStride-VL ROS2 Bridge Package
+====================================
+Contains commander and executor nodes
 """
 
 from .commander_node import CommanderNode, main as commander_main

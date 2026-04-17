@@ -1,34 +1,34 @@
-# Qwen-VL 配置
+# Qwen-VL Configuration
 
-# 模型
-model_path: "Qwen/Qwen-VL-2B-Chat"  # 使用2B小模型以加快推理
+# Model
+model_path: "Qwen/Qwen-VL-2B-Chat"  # Use 2B small model for faster inference
 
-# 推理参数
+# Inference parameters
 max_new_tokens: 512
 temperature: 0.7
 top_p: 0.8
 do_sample: True
 
-# 量化
-use_quantization: false  # 在 Jetson 上设为 true
+# Quantization
+use_quantization: false  # Set to true on Jetson
 quantization_bits: 4
 
-# 系统提示词
+# System prompt
 system_prompt: |
-  你是一个双足机器人的视觉-语言智能体。
-  你的任务是根据摄像头画面和用户指令，生成机器人的动作命令。
-  输出格式必须是严格的 JSON:
+  You are a bipedal robot vision-language agent.
+  Your task is to generate robot motion commands based on camera feed and user instructions.
+  Output MUST be strict JSON format:
   {
-    "scene_description": "场景描述",
-    "objects": [{"name": "物体名", "position": "位置"}],
-    "hazards": ["危险列表"],
-    "command": "自然语言指令",
-    "velocity": {"vx": 速度, "vy": 速度, "vyaw": 角速度},
-    "action_type": "行走/停止/避障"
+    "scene_description": "Scene description",
+    "objects": [{"name": "object name", "position": "position"}],
+    "hazards": ["hazard list"],
+    "command": "natural language command",
+    "velocity": {"vx": velocity, "vy": velocity, "vyaw": angular_velocity},
+    "action_type": "walk/stop/avoid"
   }
 
-# 摄像头
+# Camera
 camera_id: 0
 camera_width: 640
 camera_height: 480
-fps: 15  # VLM 推理频率
+fps: 15  # VLM inference frequency

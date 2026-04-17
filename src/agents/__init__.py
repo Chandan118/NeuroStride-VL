@@ -1,7 +1,7 @@
 """
-NeuroStride-VL 智能体模块
-=========================
-强化学习智能体实现
+NeuroStride-VL: Agent Module
+=============================
+Reinforcement Learning agent implementations
 """
 
 from .rl_agent import RLAgent, PPOAgent, SACAgent, TrainingConfig, create_agent

@@ -1,14 +1,14 @@
 #!/bin/bash
-# NeuroStride-VL 机器人启动脚本（运行在 Jetson Orin Nano 上）
-# ===========================================================
-# 负责启动所有必要的节点并连接硬件
+# NeuroStride-VL: Robot Startup Script (runs on Jetson Orin Nano)
+# ============================================================
+# Responsible for starting all necessary nodes and connecting hardware
 
 set -e
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$PROJECT_ROOT"
 
-# 颜色
+# Colors
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
@@ -26,7 +26,7 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# 默认参数
+# Default parameters
 USE_ROS2_CONTROL=false
 MOTOR_PORT="/dev/ttyUSB0"
 MODEL_PATH="models/trt/policy_fp16.engine"
@@ -51,58 +51,58 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         *)
-            log_error "未知参数: $1"
+            log_error "Unknown parameter: $1"
             exit 1
             ;;
     esac
 done
 
 log_info "=========================================="
-log_info "  NeuroStride-VL 机器人启动器"
+log_info "  NeuroStride-VL Robot Launcher"
 log_info "=========================================="
 
-# 检查环境
-log_info "环境检查..."
+# Check environment
+log_info "Environment check..."
 
-# 检查 Python
+# Check Python
 if ! command -v python3 &> /dev/null; then
-    log_error "Python3 未安装"
+    log_error "Python3 not installed"
     exit 1
 fi
 
-# 检查 ROS2
+# Check ROS2
 if ! command -v ros2 &> /dev/null; then
-    log_error "ROS2 未安装或未 source"
-    log_info "请运行: source /opt/ros/humble/setup.bash"
+    log_error "ROS2 not installed or not sourced"
+    log_info "Please run: source /opt/ros/humble/setup.bash"
     exit 1
 fi
 
-# 检查 TensorRT 引擎
+# Check TensorRT engine
 if [ ! -f "$MODEL_PATH" ]; then
-    log_warn "TensorRT 引擎未找到: $MODEL_PATH"
-    log_info "请先运行部署脚本:"
+    log_warn "TensorRT engine not found: $MODEL_PATH"
+    log_info "Please run deployment script first:"
     log_info "  ./scripts/deploy/deploy_to_jetson.sh --host <ip>"
 fi
 
-# 激活虚拟环境
+# Activate virtual environment if exists
 if [ -d "venv" ]; then
     source venv/bin/activate
-    log_info "激活虚拟环境"
+    log_info "Activated virtual environment"
 fi
 
-# 编译 ROS2 包（如果需要）
-log_info "检查 ROS2 包..."
+# Build ROS2 packages if needed
+log_info "Checking ROS2 packages..."
 if [ ! -d "install/neurostride_msgs" ]; then
-    log_info "编译 ROS2 包..."
+    log_info "Building ROS2 packages..."
     colcon build --symlink-install --packages-select neurostride_msgs neurostride_bridge
     source install/setup.bash
 fi
 
-# 启动节点
-log_info "启动机器人节点..."
+# Start nodes
+log_info "Starting robot nodes..."
 
-# 使用 ROS2 launch 启动（推荐）
-# 创建临时 launch 文件
+# Use ROS2 launch (recommended)
+# Create temporary launch file
 LAUNCH_FILE="/tmp/neurostride_robot.launch.py"
 cat > "$LAUNCH_FILE" << EOF
 from launch import LaunchDescription
@@ -125,35 +125,35 @@ def generate_launch_description():
     ])
 EOF
 
-# 启动
+# Start
 ros2 launch "$LAUNCH_FILE" &
 
-# 等待节点启动
+# Wait for node to start
 sleep 3
 
-# 检查节点状态
+# Check node status
 if ros2 node list | grep -q "executor"; then
-    log_success "✅ 执行器节点已启动"
+    log_success "✅ Executor node started"
 else
-    log_error "节点启动失败"
+    log_error "Node startup failed"
     exit 1
 fi
 
-# 显示状态信息
+# Display status info
 log_info ""
 log_info "=========================================="
-log_info "  NeuroStride-VL 机器人运行中"
+log_info "  NeuroStride-VL Robot Running"
 log_info "=========================================="
 log_info ""
-log_info "监控命令:"
-log_info "  查看节点:     ros2 node list"
-log_info "  查看话题:     ros2 topic list"
-log_info "  查看状态:     ros2 topic echo /robot_state"
-log_info "  发送速度:     ros2 topic pub /cmd_vel geometry_msgs/Twist '{linear: {x: 0.5}, angular: {z: 0.0}}'"
+log_info "Monitoring commands:"
+log_info "  List nodes:     ros2 node list"
+log_info "  List topics:    ros2 topic list"
+log_info "  View status:    ros2 topic echo /robot_state"
+log_info "  Send velocity:  ros2 topic pub /cmd_vel geometry_msgs/Twist '{linear: {x: 0.5}, angular: {z: 0.0}}'"
 log_info ""
-log_info "停止: 按 Ctrl+C"
+log_info "Stop: Press Ctrl+C"
 log_info ""
 
-# 等待中断
-trap 'log_info "正在停止..."; kill $(pgrep -f "ros2 launch"); exit 0' INT
+# Wait for interrupt
+trap 'log_info "Stopping..."; kill $(pgrep -f "ros2 launch"); exit 0' INT
 wait

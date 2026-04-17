@@ -1,7 +1,7 @@
 """
-NeuroStride-VL 可视化工具
-=========================
-用于训练曲线绘制和视频生成
+NeuroStride-VL: Visualization Tools
+====================================
+For training curve plotting and video generation
 """
 
 import numpy as np
@@ -17,18 +17,18 @@ def plot_training_curves(
     save_path: Optional[str] = None,
 ):
     """
-    绘制训练曲线
+    Plot training curves
 
     Args:
-        rewards: 每回合奖励列表
-        lengths: 每回合步数列表
-        losses: 损失值列表（可选）
-        title: 图表标题
-        save_path: 保存路径（None则显示）
+        rewards: List of episode rewards
+        lengths: List of episode lengths
+        losses: List of loss values (optional)
+        title: Plot title
+        save_path: Save path (None to display)
     """
     fig, axes = plt.subplots(1, 3 if losses else 2, figsize=(12, 4))
 
-    # 奖励曲线
+    # Reward curve
     axes[0].plot(rewards, alpha=0.6, label='Episode Reward')
     axes[0].plot(
         np.convolve(rewards, np.ones(100)/100, mode='valid'),
@@ -40,7 +40,7 @@ def plot_training_curves(
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
 
-    # 回合长度曲线
+    # Episode length curve
     axes[1].plot(lengths, alpha=0.6, label='Episode Length')
     axes[1].set_xlabel('Episode')
     axes[1].set_ylabel('Steps')
@@ -48,7 +48,7 @@ def plot_training_curves(
     axes[1].legend()
     axes[1].grid(True, alpha=0.3)
 
-    # 损失曲线（如果有）
+    # Loss curve (if provided)
     if losses and len(axes) > 2:
         axes[2].plot(losses, alpha=0.6, label='Loss')
         axes[2].set_xlabel('Update')
@@ -62,7 +62,7 @@ def plot_training_curves(
 
     if save_path:
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
-        print(f"图表已保存: {save_path}")
+        print(f"Plot saved: {save_path}")
     else:
         plt.show()
 
@@ -75,17 +75,17 @@ def render_video(
     fps: int = 30,
 ):
     """
-    将帧序列渲染为视频
+    Render frame sequence to video
 
     Args:
-        frames: 帧列表 (H, W, 3) uint8
-        output_path: 输出视频路径
-        fps: 帧率
+        frames: List of frames (H, W, 3) uint8
+        output_path: Output video path
+        fps: Frame rate
     """
     import cv2
 
     if not frames:
-        print("警告: 帧列表为空")
+        print("Warning: Empty frame list")
         return
 
     height, width = frames[0].shape[:2]
@@ -93,7 +93,7 @@ def render_video(
     writer = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
 
     for frame in frames:
-        # 确保 BGR 格式（OpenCV 默认）
+        # Ensure BGR format (OpenCV default)
         if frame.shape[2] == 3:
             frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         else:
@@ -101,4 +101,4 @@ def render_video(
         writer.write(frame_bgr)
 
     writer.release()
-    print(f"视频已保存: {output_path}")
+    print(f"Video saved: {output_path}")

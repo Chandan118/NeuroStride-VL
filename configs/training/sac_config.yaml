@@ -1,21 +1,21 @@
-# SAC 训练配置
+# SAC Training Configuration
 
-# 算法
+# Algorithm
 algo: "sac"
 env_name: "unitree_g1"
 
-# 训练步数
+# Training steps
 total_timesteps: 1_000_000
 
-# 随机种子
+# Random seed
 seed: 42
 
-# 策略网络架构
+# Policy network architecture
 policy_kwargs:
   net_arch: [256, 256]
   activation_fn: "ReLU"
 
-# SAC 超参数
+# SAC hyperparameters
 sac:
   learning_rate: 3.0e-4
   buffer_size: 1_000_000
@@ -28,7 +28,7 @@ sac:
   ent_coef: "auto"
   target_update_interval: 1
 
-# 奖励权重
+# Reward weights
 reward_weights:
   forward_vel: 1.0
   upright: 0.5
@@ -37,10 +37,10 @@ reward_weights:
   alive: 0.1
   foot_contact: 0.2
 
-# 训练设置
+# Training settings
 save_freq: 50000
 eval_freq: 10000
 n_eval_episodes: 10
 
-# 设备
+# Device
 device: "auto"

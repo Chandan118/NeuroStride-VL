@@ -1,7 +1,7 @@
 """
-NeuroStride-VL 日志工具
-=======================
-提供结构化、彩色的日志输出
+NeuroStride-VL: Logging Utilities
+==================================
+Provides structured, colored logging output
 """
 
 import logging
@@ -9,7 +9,7 @@ import sys
 from datetime import datetime
 from typing import Optional
 
-# 颜色代码
+# Color codes
 class Colors:
     HEADER = '\033[95m'
     BLUE = '\033[94m'
@@ -22,7 +22,7 @@ class Colors:
 
 
 class ColoredFormatter(logging.Formatter):
-    """彩色日志格式化器"""
+    """Colored log formatter"""
 
     COLORS = {
         'DEBUG': Colors.CYAN,
@@ -34,7 +34,7 @@ class ColoredFormatter(logging.Formatter):
     }
 
     def format(self, record):
-        # 添加颜色
+        # Add colors
         levelname = record.levelname
         if levelname in self.COLORS:
             record.levelname = f"{self.COLORS[levelname]}{levelname}{Colors.ENDC}"
@@ -43,19 +43,19 @@ class ColoredFormatter(logging.Formatter):
 
 
 def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
-    """获取带颜色的日志记录器"""
+    """Get a colored logger"""
     logger = logging.getLogger(name)
     logger.setLevel(level)
 
-    # 避免重复添加 handler
+    # Avoid duplicate handlers
     if logger.handlers:
         return logger
 
-    # 控制台 handler
+    # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(level)
 
-    # 格式化
+    # Format
     formatter = ColoredFormatter(
         fmt='%(asctime)s [%(levelname)-8s] %(name)s: %(message)s',
         datefmt='%H:%M:%S'
@@ -66,14 +66,14 @@ def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
     return logger
 
 
-# 快捷函数
+# Convenience functions
 def log_info(msg: str, *args, **kwargs):
     logging.getLogger(__name__).info(msg, *args, **kwargs)
 
 
 def log_success(msg: str, *args, **kwargs):
     logger = logging.getLogger(__name__)
-    logger.log(25, msg, *args, **kwargs)  # 自定义级别 25
+    logger.log(25, msg, *args, **kwargs)  # Custom level 25
 
 
 def log_warning(msg: str, *args, **kwargs):
@@ -88,5 +88,5 @@ def log_debug(msg: str, *args, **kwargs):
     logging.getLogger(__name__).debug(msg, *args, **kwargs)
 
 
-# 注册自定义日志级别 SUCCESS
+# Register custom SUCCESS log level
 logging.addLevelName(25, 'SUCCESS')

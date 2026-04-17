@@ -1,19 +1,19 @@
 """
-NeuroStride-VL: 模型量化与优化模块
-====================================
-将 PyTorch 模型转换为 TensorRT 引擎以在 Jetson Orin Nano 上加速
+NeuroStride-VL: Model Quantization and Optimization Module
+==========================================================
+Convert PyTorch models to TensorRT engines for acceleration on Jetson Orin Nano
 
-功能:
-- PyTorch -> ONNX 导出
-- ONNX -> TensorRT 引擎转换
-- FP16/INT8 量化
-- 模型性能基准测试
+Features:
+- PyTorch -> ONNX export
+- ONNX -> TensorRT engine conversion
+- FP16/INT8 quantization
+- Model performance benchmarking
 
-支持模型:
-- SAC/PPO 策略网络 (locomotion policy)
-- Qwen-VL 视觉语言模型 (可选)
+Supported models:
+- SAC/PPO policy networks (locomotion policy)
+- Qwen-VL vision-language model (optional)
 
-作者: NeuroStride-VL Team
+Authors: NeuroStride-VL Team
 """
 
 import os

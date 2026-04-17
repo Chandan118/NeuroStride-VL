@@ -1,7 +1,7 @@
 """
-NeuroStride-VL: 行走策略网络
-=============================
-基于 PyTorch 的策略网络架构
+NeuroStride-VL: Locomotion Policy Network
+=========================================
+PyTorch-based policy network architecture
 """
 
 import torch
@@ -12,10 +12,10 @@ from typing import Tuple, Optional
 
 class LocomotionPolicy(nn.Module):
     """
-    双足机器人行走策略网络
+    Bipedal robot walking policy network
 
-    输入: 状态观测 (关节位置、速度、IMU、目标速度)
-    输出: 动作 (关节扭矩)
+    Input: State observation (joint positions, velocities, IMU, target velocity)
+    Output: Actions (joint torques)
     """
 
     def __init__(
@@ -27,7 +27,7 @@ class LocomotionPolicy(nn.Module):
     ):
         super().__init__()
 
-        # 激活函数
+        # Activation function
         if activation == "tanh":
             self.activation = nn.Tanh
         elif activation == "relu":
@@ -35,9 +35,9 @@ class LocomotionPolicy(nn.Module):
         elif activation == "elu":
             self.activation = nn.ELU
         else:
-            raise ValueError(f"不支持的激活函数: {activation}")
+            raise ValueError(f"Unsupported activation: {activation}")
 
-        # 构建网络
+        # Build network
         layers = []
         prev_size = obs_dim
 
@@ -48,18 +48,18 @@ class LocomotionPolicy(nn.Module):
 
         self.shared_net = nn.Sequential(*layers)
 
-        # 策略头 (Actor)
+        # Policy head (Actor)
         self.policy_mean = nn.Linear(prev_size, action_dim)
         self.policy_logstd = nn.Parameter(torch.zeros(action_dim))
 
-        # 价值头 (Critic)
+        # Value head (Critic)
         self.value_net = nn.Linear(prev_size, 1)
 
-        # 初始化
+        # Initialize
         self._init_weights()
 
     def _init_weights(self):
-        """初始化网络权重"""
+        """Initialize network weights"""
         for module in self.modules():
             if isinstance(module, nn.Linear):
                 nn.init.orthogonal_(module.weight, gain=nn.init.calculate_gain('tanh'))
@@ -71,40 +71,43 @@ class LocomotionPolicy(nn.Module):
         deterministic: bool = False
     ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """
-        前向传播
+        Forward pass
 
         Args:
-            obs: 观测张量 (batch, obs_dim)
-            deterministic: 是否使用确定性策略
+            obs: Observation tensor (batch, obs_dim)
+            deterministic: Whether to use deterministic policy
 
         Returns:
-            action: 动作 (batch, action_dim)
-            log_prob: 对数概率 (batch,)
-            value: 价值估计 (batch,)
+            action: Actions (batch, action_dim)
+            log_prob: Log probabilities (batch,)
+            value: Value estimates (batch,)
         """
-        # 共享特征
+        # Shared features
         features = self.shared_net(obs)
 
-        # 策略分布
+        # Policy distribution
         mean = self.policy_mean(features)
         std = torch.exp(self.policy_logstd).expand_as(mean)
 
-        # 创建正态分布
+        # Create normal distribution
         dist = torch.distributions.Normal(mean, std)
 
-        # 采样动作
+        # Sample action
         if deterministic:
             action = mean
         else:
             action = dist.rsample()
 
-        # 计算对数概率
+        # Compute log probability
         log_prob = dist.log_prob(action).sum(dim=-1)
 
-        # 价值估计
+        # Compute entropy
+        entropy = dist.entropy().sum(dim=-1)
+
+        # Compute value
         value = self.value_net(features).squeeze(-1)
 
-        return action, log_prob, value
+        return action, log_prob, entropy
 
     def evaluate_actions(
         self,
@@ -112,39 +115,43 @@ class LocomotionPolicy(nn.Module):
         actions: torch.Tensor
     ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """
-        评估给定动作的对数概率和熵
+        Evaluate actions (for training)
 
         Args:
-            obs: 观测张量
-            actions: 动作张量
+            obs: Observations (batch, obs_dim)
+            actions: Actions to evaluate (batch, action_dim)
 
         Returns:
-            log_prob: 对数概率
-            entropy: 熵
-            value: 价值估计
+            values: Value estimates (batch,)
+            log_prob: Log probabilities (batch,)
+            entropy: Entropy (batch,)
         """
+        # Shared features
         features = self.shared_net(obs)
 
+        # Policy distribution
         mean = self.policy_mean(features)
         std = torch.exp(self.policy_logstd).expand_as(mean)
         dist = torch.distributions.Normal(mean, std)
 
+        # Evaluate
         log_prob = dist.log_prob(actions).sum(dim=-1)
         entropy = dist.entropy().sum(dim=-1)
-
         value = self.value_net(features).squeeze(-1)
 
-        return log_prob, entropy, value
+        return value, log_prob, entropy
 
-    def get_value(self, obs: torch.Tensor) -> torch.Tensor:
-        """仅获取价值估计"""
+    def get_distribution(self, obs: torch.Tensor):
+        """Get action distribution"""
         features = self.shared_net(obs)
-        return self.value_net(features).squeeze(-1)
+        mean = self.policy_mean(features)
+        std = torch.exp(self.policy_logstd).expand_as(mean)
+        return torch.distributions.Normal(mean, std)
 
 
-# 简化版策略（仅用于推理）
+# Simplified policy (inference only)
 class SimplePolicy(nn.Module):
-    """简化策略网络，仅用于推理阶段"""
+    """Simplified policy network for inference only"""
 
     def __init__(self, obs_dim: int = 70, action_dim: int = 23):
         super().__init__()
@@ -154,7 +161,7 @@ class SimplePolicy(nn.Module):
             nn.Linear(256, 256),
             nn.Tanh(),
             nn.Linear(256, action_dim),
-            nn.Tanh(),  # 输出范围 [-1, 1]
+            nn.Tanh(),  # Output range [-1, 1]
         )
 
     def forward(self, obs: torch.Tensor) -> torch.Tensor:
@@ -162,8 +169,8 @@ class SimplePolicy(nn.Module):
 
 
 if __name__ == "__main__":
-    # 测试网络
-    print("测试 LocomotionPolicy...")
+    # Test network
+    print("Testing LocomotionPolicy...")
 
     batch_size = 32
     obs_dim = 70
@@ -174,15 +181,15 @@ if __name__ == "__main__":
     obs = torch.randn(batch_size, obs_dim)
     action, log_prob, value = policy(obs)
 
-    print(f"输入: {obs.shape}")
-    print(f"动作: {action.shape}")
-    print(f"对数概率: {log_prob.shape}")
-    print(f"价值: {value.shape}")
+    print(f"Input: {obs.shape}")
+    print(f"Action: {action.shape}")
+    print(f"Log prob: {log_prob.shape}")
+    print(f"Value: {value.shape}")
 
-    # 评估动作
+    # Evaluate actions
     test_actions = torch.randn(batch_size, action_dim)
-    log_prob2, entropy, value2 = policy.evaluate_actions(obs, test_actions)
-    print(f"评估对数概率: {log_prob2.shape}")
+    value2, log_prob2, entropy = policy.evaluate_actions(obs, test_actions)
+    print(f"Evaluated log prob: {log_prob2.shape}")
     print(f"熵: {entropy.shape}")
 
     print("✅ 网络测试通过！")
