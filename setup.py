@@ -20,7 +20,7 @@ setup(
     description="Vision-Language-Action Bipedal Robot Framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/NeuroStride-VL",
+    url="https://github.com/Chandan118/NeuroStride-VL",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     classifiers=[

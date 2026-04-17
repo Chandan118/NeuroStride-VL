@@ -53,10 +53,10 @@ ros2 = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/NeuroStride-VL"
-Repository = "https://github.com/yourusername/NeuroStride-VL.git"
+Homepage = "https://github.com/Chandan118/NeuroStride-VL"
+Repository = "https://github.com/Chandan118/NeuroStride-VL.git"
 Documentation = "https://neurostride-vl.readthedocs.io"
-BugTracker = "https://github.com/yourusername/NeuroStride-VL/issues"
+BugTracker = "https://github.com/Chandan118/NeuroStride-VL/issues"
 
 [tool.black]
 line-length = 88

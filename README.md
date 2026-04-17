@@ -78,7 +78,7 @@ graph TB
 
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/NeuroStride-VL.git
+git clone https://github.com/Chandan118/NeuroStride-VL.git
 cd NeuroStride-VL
 
 # 运行自动安装脚本
@@ -183,7 +183,7 @@ python3 -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
 ```bash
 # 克隆到 /home/jetson 目录
 cd ~
-git clone https://github.com/yourusername/NeuroStride-VL.git
+git clone https://github.com/Chandan118/NeuroStride-VL.git
 cd NeuroStride-VL
 
 # 安装 Python 依赖
@@ -413,7 +413,7 @@ python3 examples/hello_world.py
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/yourusername/NeuroStride-VL.git
+git clone https://github.com/Chandan118/NeuroStride-VL.git
 cd NeuroStride-VL
 
 # 2. 运行安装脚本
@@ -661,7 +661,7 @@ sudo apt install python3-libnvinfer-dev libnvinfer-dev
 
 如果这个项目对您有帮助，请给我们一个 **Star**！🌟
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/NeuroStride-VL?style=social)](https://github.com/yourusername/NeuroStride-VL)
+[![GitHub stars](https://img.shields.io/github/stars/Chandan118/NeuroStride-VL?style=social)](https://github.com/Chandan118/NeuroStride-VL)
 
 ---
 
