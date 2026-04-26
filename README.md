@@ -553,3 +553,5 @@ MIT License - see [LICENSE](LICENSE) file.
 ---
 
 **Made with ❤️ by the NeuroStride-VL Team**
+
+<!-- Deployment: Jetson Orin Nano -->
