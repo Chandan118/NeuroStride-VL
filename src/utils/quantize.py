@@ -35,9 +35,12 @@ import onnxruntime as ort
 # TensorRT (仅 Jetson 可用)
 try:
     import tensorrt as trt
+    import pycuda.driver as cuda
+    import pycuda.autoinit  # noqa: F401
     TRT_AVAILABLE = True
 except ImportError:
     TRT_AVAILABLE = False
+    cuda = None
     print("警告: TensorRT 不可用，仅支持 ONNX 导出")
 
 # 日志

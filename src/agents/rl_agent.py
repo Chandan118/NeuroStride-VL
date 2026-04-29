@@ -28,6 +28,7 @@ from stable_baselines3.common.policies import MlpPolicy
 from stable_baselines3.common.evaluation import evaluate_policy
 
 from neurostride.env.bipedal_env import BipedalEnv, RobotConfig, make_env
+from neurostride.utils.logger import log_info, log_success, log_warning, log_error
 
 
 @dataclass

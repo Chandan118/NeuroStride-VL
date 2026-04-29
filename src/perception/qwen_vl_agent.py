@@ -38,6 +38,8 @@ from transformers import (
 )
 from transformers.generation import GenerationConfig
 
+from neurostride.utils.logger import log_info, log_success, log_warning, log_error, log_debug
+
 
 @dataclass
 class VLConfig:
